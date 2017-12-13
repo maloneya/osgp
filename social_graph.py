@@ -1,5 +1,6 @@
 import networkx as nx
 from person import Person
+from comm_opps import send_graph
 
 class socialGraph:
 	def __init__(self,owner):
@@ -35,14 +36,3 @@ class socialGraph:
 		non_friends = nodes - friends - set([self.owner])
 		print "Friends:",friends
 		print "People you may know:",non_friends
-
-alex = socialGraph(Person("alex",21))
-tom = socialGraph(Person("Tom",40))
-dan = socialGraph(Person("Dan",21))
-rob = socialGraph(Person("Robbie",21))
-
-tom.add_friend(friend_graph=dan)
-tom.add_friend(friend_graph=rob)
-alex.add_friend(friend_graph=tom)
-
-alex.display_graph()
