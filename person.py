@@ -1,11 +1,10 @@
 class Person:
-	id_count = 0
-
-	def __init__(self,name,age):
+	def __init__(self,name,age,owner_location):
 		self.name = name
 		self.age = age
-		self.id = name+ str(Person.id_count)
-		Person.id_count+=1
+		self.owner_location = owner_location
+		self.id = name+'@'+owner_location
+
 
 	def __str__(self):
 		return "Name: " + self.name + ", age: " + str(self.age) + ", id: " + str(self.id)
