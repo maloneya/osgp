@@ -19,6 +19,14 @@ class socialGraph:
 
 			self.graph.add_edge(friend_graph.owner,friend)
 
+	def remove_friend(self,person_to_remove):
+		for node in self.graph.nodes:
+			if node.name == person_to_remove:
+				self.graph.remove_edge(self.owner,node)
+				return 0
+
+		return -1
+
 	def getFriends(self):
 		return set(list(self.graph.neighbors(self.owner)));
 
