@@ -22,7 +22,7 @@ def run_client(host_name,notification_queue):
 			notification_handeler(type,local_user,msg)
 
 		print "Available operations: 1. add friend by name 2. add friend you may know 3. display my graph 4. create local user"
-		print "5. Remove Friend"
+		print "5. Remove Friend 6. Write post 7. View Friends Posts"
 		op = raw_input("Enter operation number: ")
 
 		if   op == "1":
@@ -43,6 +43,13 @@ def run_client(host_name,notification_queue):
 			display_users()
 			usr_idx = int(raw_input("Enter user number: "))
 			remove_friend(usr_idx)
+		elif op == "6":
+			display_users()
+			usr_idx = int(raw_input("Enter user number: "))
+			write_post(usr_idx)
+		elif op == "7":
+			fetch_posts(0)
+			clear = False
 
 		else:
 			print "Invalid op number"
@@ -51,3 +58,11 @@ def run_client(host_name,notification_queue):
 
 def find_graph(name):
 	return find_graph_op(name)
+
+def is_friend(user_a,user_b):
+	friends = find_graph(user_a).getFriends()
+	for friend in friends:
+		if friend.id == user_b:
+			return True
+
+	return False

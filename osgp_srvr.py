@@ -1,5 +1,5 @@
 import socket,pickle
-from social_network import find_graph
+from social_network import find_graph, is_friend
 from Queue import Queue
 
 #in a real networking environment this would be handled with DNS resolution presumably,
@@ -30,6 +30,20 @@ def start_graph_srvr(host_name,notification_queue):
 				conn.send(pickle.dumps(graph))
 				notification_queue.put_nowait(("newfriend",name,requester_id))
 
+		elif op == "request_posts":
+			conn.send("200")
+			msgs = conn.recv(buffer_size).split("/")
+			local_usr = msgs[0]
+			graph = find_graph(local_usr)
+			if graph == -1:
+				conn.send("404")
+			else:
+				sender = msgs[1]
+				if not is_friend(local_usr,sender):
+					conn.send("401")
+				else:
+					conn.send(pickle.dumps(graph.owner.posts))
+
 		elif op == "notify":
 			conn.send("200")
 			msgs = conn.recv(buffer_size).split("/")
@@ -42,14 +56,7 @@ def start_graph_srvr(host_name,notification_queue):
 				notification_queue.put_nowait((notificaiton,usr_to_notify,sender))
 				conn.send("200")
 
-
 		else:
-			conn.send("401")
+			conn.send("400")
 
 		conn.close()
-
-
-#posts - need to authenticate that both users have eachtoher as friends in their graph
-
-#remove - send a notify msg that a user has removed this user.
-

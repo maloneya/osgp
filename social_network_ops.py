@@ -66,6 +66,25 @@ def remove_friend(usr_idx):
 
 	send_notification(friends[remove_idx].owner_location,friends[remove_idx].name,"removefriend",current_user.owner.id)
 
+def write_post(usr_idx):
+	users[usr_idx].owner.posts.append(raw_input("Enter Post: "))
+
+def fetch_posts(usr_idx):
+	current_user = users[usr_idx]
+	friends = list(current_user.getFriends())
+	for i,u in enumerate(friends):
+		print i,u.name
+	friend_idx = int(raw_input("Enter user number: "))
+	friend = friends[friend_idx]
+	posts = request_posts(friend.owner_location,friend.name,current_user.owner.id)
+	if posts == -1:
+		print"Can not view posts,",friend.name,"has not added you as a friend"
+		return
+
+	print "Posts",friend.name
+	print "--------------------------"
+	print posts
+
 def notification_handeler(type,local_user,msg):
 	if type == "newfriend":
 		print msg,"has added",local_user,"as a friend"

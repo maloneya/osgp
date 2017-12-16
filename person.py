@@ -3,6 +3,7 @@ class Person:
 		self.name = name
 		self.age = age
 		self.owner_location = owner_location
+		self.posts = []
 		self.id = name+'@'+owner_location
 
 
