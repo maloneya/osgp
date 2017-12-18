@@ -4,7 +4,7 @@ host_names = {"myface":"192.168.33.10","bookspace":"192.168.33.11"}
 
 def snd_and_wait(op, msgs, dst_ip):
 	TCP_PORT = 5005
-	BUFFER_SIZE = 1024
+	BUFFER_SIZE = 2048
 	s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 	s.connect((dst_ip,TCP_PORT))
 	s.send(op)
@@ -34,7 +34,7 @@ def send_notification(domain, name, notification, sender_id):
 	if not host_names.has_key(domain): return "304"
 	dst_ip = host_names[domain]
 	return snd_and_wait("notify",[name,notification,sender_id],dst_ip)
-#fixme - need to deserialize and not clear screen!
+
 def request_posts(domain, name, sender_id):
 	if not host_names.has_key((domain)):
 		print "Domain",dst_domain,"not found"

@@ -5,7 +5,7 @@ from Queue import Queue
 #in a real networking environment this would be handled with DNS resolution presumably,
 host_names = {"myface":"192.168.33.10","bookspace":"192.168.33.11"}
 
-buffer_size = 1024
+buffer_size = 2048
 port = 5005
 
 def start_graph_srvr(host_name,notification_queue):

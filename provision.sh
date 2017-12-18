@@ -5,3 +5,4 @@ sudo pip install --upgrade pip
 sudo pip install --upgrade virtualenv
 
 pip install networkx
+pip install pickle
